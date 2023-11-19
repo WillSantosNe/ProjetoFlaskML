@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Escolha um Classificador</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin-top: 50px;
+        }
+        .container {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-light">Escolha um Classificador</h1>
+
+        <!-- Formulário que irá selecionar o classificador -->
+        <form action="{{ url_for('select_classifier') }}" method="get" class="form-signin">
+            <div class="form-group">
+                <select name="classifier" class="form-control">
+                    <option value="KNN">KNN</option>
+                    <option value="SVM">SVM</option>
+                    <option value="MLP">MLP</option>
+                    <option value="DT">Decision Tree</option>
+                    <option value="RF">Random Forest</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">Escolher e Configurar</button>
+        </form>
+    </div>
+</body>
+</html>
