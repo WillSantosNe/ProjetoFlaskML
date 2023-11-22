@@ -57,6 +57,10 @@
                     <h2 class="text-center">Matriz de Confusão</h2>
                     <img src="{{ url_for('static', filename=matrix_image) }}" alt="Matriz de Confusão" class="img-confusion-matrix">
                 {% endif %}
+
+                {% if acuracia %}
+            <h3 class="text-center">Acurácia do Modelo: {{ acuracia }}</h3>
+        {% endif %}
             </div>
         </div>
     </div>

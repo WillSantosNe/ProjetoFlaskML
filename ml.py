@@ -9,6 +9,9 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 
+from sklearn.metrics import accuracy_score
+
+
 
 """
 Carrega dataset no formato CSV
@@ -74,6 +77,8 @@ def treinar_e_avaliar(classificador, parametros, X_train, y_train, X_test, y_tes
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     matriz_confusao = confusion_matrix(y_test, y_pred)
+
+    acuracia = accuracy_score(y_test, y_pred)
     
     # Salvando a matriz de confusão como imagem
     nome_imagem = f'confusion_matrix_{classificador}.png'
@@ -84,7 +89,7 @@ def treinar_e_avaliar(classificador, parametros, X_train, y_train, X_test, y_tes
     plt.savefig(caminho_imagem)
     plt.close(fig)
 
-    return nome_imagem
+    return nome_imagem, acuracia
 
 
 

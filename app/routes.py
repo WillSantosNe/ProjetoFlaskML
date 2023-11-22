@@ -74,10 +74,10 @@ def select_classifier():
     if request.method == 'POST' and form.validate():
         X, y = carregar_dados()
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-        caminho_imagem = treinar_e_avaliar(classifier, parametros, X_train, y_train, X_test, y_test)
+        caminho_imagem, acuracia = treinar_e_avaliar(classifier, parametros, X_train, y_train, X_test, y_test)
 
         flash('Modelo treinado com sucesso!')
-        return render_template('classifier_form.html', form=form, classifier=classifier, matrix_image=caminho_imagem)
+        return render_template('classifier_form.html', form=form, classifier=classifier, matrix_image=caminho_imagem, acuracia=acuracia)
 
     return render_template('classifier_form.html', form=form, classifier=classifier)
 
