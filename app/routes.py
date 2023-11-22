@@ -20,33 +20,55 @@ def select_classifier():
     classifier = request.args.get('classifier', 'KNN')  # KNN como padrão
     form = None
     parametros = {}
-    
+
     if classifier == 'KNN':
         form = KNNForm(request.form)
         if form.validate_on_submit():
-            parametros = {'n_neighbors': form.n_neighbors.data}
+            parametros = {
+                'n_neighbors': form.n_neighbors.data,
+                'weights': form.weights.data,
+                'algorithm': form.algorithm.data
+            }
 
     elif classifier == 'SVM':
         form = SVMForm(request.form)
         if form.validate_on_submit():
-            parametros = {'kernel': form.kernel.data, 'degree': form.degree.data}
+            parametros = {
+                'kernel': form.kernel.data,
+                'degree': form.degree.data,
+                'C': form.C.data,
+                'gamma': form.gamma.data
+            }
 
     elif classifier == 'MLP':
         form = MLPForm(request.form)
         if form.validate_on_submit():
             hidden_layer_sizes = tuple(map(int, form.hidden_layer_sizes.data.split(',')))
-            parametros = {'hidden_layer_sizes': hidden_layer_sizes, 'max_iter': form.max_iter.data}
+            parametros = {
+                'hidden_layer_sizes': hidden_layer_sizes,
+                'max_iter': form.max_iter.data,
+                'learning_rate_init': form.learning_rate_init.data,
+                'solver': form.solver.data
+            }
 
     elif classifier == 'DT':
         form = DTForm(request.form)
         if form.validate_on_submit():
-            parametros = {'max_depth': form.max_depth.data}
+            parametros = {
+                'max_depth': form.max_depth.data,
+                'criterion': form.criterion.data,
+                'min_samples_split': form.min_samples_split.data
+            }
 
     elif classifier == 'RF':
         form = RFForm(request.form)
         if form.validate_on_submit():
-            parametros = {'n_estimators': form.n_estimators.data, 'max_depth': form.max_depth.data}
-
+            parametros = {
+                'n_estimators': form.n_estimators.data,
+                'max_depth': form.max_depth.data,
+                'criterion': form.criterion.data,
+                'min_samples_split': form.min_samples_split.data
+            }
 
     # Treinamento com os dados do formulário
     if request.method == 'POST' and form.validate():
@@ -58,6 +80,7 @@ def select_classifier():
         return render_template('classifier_form.html', form=form, classifier=classifier, matrix_image=caminho_imagem)
 
     return render_template('classifier_form.html', form=form, classifier=classifier)
+
 
 
 

@@ -17,7 +17,7 @@ Seleciona colunas utilizadas no Machine Learning
 Retorna o "X" e "y"
 """
 def carregar_dados():
-    df = pd.read_csv("uploads/diabetes_binary_5050split_health_indicators_BRFSS2015.csv")
+    df = pd.read_csv("uploads/diabetes.csv")
     colunas_atributos = ['Age', 'Sex', 'BMI', 'CholCheck']
     X = df[colunas_atributos]
     y = df['Diabetes_binary']
@@ -36,15 +36,38 @@ Retorna o nome do arquivo de imagem salvo
 """
 def treinar_e_avaliar(classificador, parametros, X_train, y_train, X_test, y_test):
     if classificador == 'KNN':
-        clf = KNeighborsClassifier(n_neighbors=parametros['n_neighbors'])
+        clf = KNeighborsClassifier(
+            n_neighbors=parametros['n_neighbors'],
+            weights=parametros['weights'],
+            algorithm=parametros['algorithm']
+        )
     elif classificador == 'SVM':
-        clf = SVC(kernel=parametros['kernel'], degree=parametros['degree'])
+        clf = SVC(
+            kernel=parametros['kernel'],
+            degree=parametros['degree'],
+            C=parametros['C'],
+            gamma=parametros['gamma']
+        )
     elif classificador == 'MLP':
-        clf = MLPClassifier(hidden_layer_sizes=parametros['hidden_layer_sizes'], max_iter=parametros['max_iter'])
+        clf = MLPClassifier(
+            hidden_layer_sizes=parametros['hidden_layer_sizes'],
+            max_iter=parametros['max_iter'],
+            learning_rate_init=parametros['learning_rate_init'],
+            solver=parametros['solver']
+        )
     elif classificador == 'DT':
-        clf = DecisionTreeClassifier(max_depth=parametros['max_depth'])
+        clf = DecisionTreeClassifier(
+            max_depth=parametros['max_depth'],
+            criterion=parametros['criterion'],
+            min_samples_split=parametros['min_samples_split']
+        )
     elif classificador == 'RF':
-        clf = RandomForestClassifier(n_estimators=parametros['n_estimators'], max_depth=parametros['max_depth'])
+        clf = RandomForestClassifier(
+            n_estimators=parametros['n_estimators'],
+            max_depth=parametros['max_depth'],
+            criterion=parametros['criterion'],
+            min_samples_split=parametros['min_samples_split']
+        )
     else:
         raise ValueError("Classificador não encontrado.")
     
@@ -62,3 +85,7 @@ def treinar_e_avaliar(classificador, parametros, X_train, y_train, X_test, y_tes
     plt.close(fig)
 
     return nome_imagem
+
+
+
+carregar_dados()
